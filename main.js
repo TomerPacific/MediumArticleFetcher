@@ -7,9 +7,9 @@ let request = null;
 
 function fetchArticles() {
     request = new XMLHttpRequest();
-    let url = "https://medium.com/feed/@tomerpacific";
+    let url = "https://medium-fetcher.herokuapp.com/medium";
     request.open(GET_REQUEST, url);
-    request.setRequestHeader("Access-Control-Allow-Origin", "*");
+    request.setRequestHeader("Content-Type", "application/json");
     try {
         request.send(null);
     } catch(exception) {

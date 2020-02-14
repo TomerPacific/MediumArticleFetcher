@@ -34,8 +34,8 @@ function fetchArticles() {
 }
 
 fetchArticles().then(function(response) {
-    getUserDataFromResponse(response.message.items);
-    getArticlesFromResponse(response.message);
+    getUserDataFromResponse(response.message);
+    getArticlesFromResponse(response.message.items);
     populateUserData();
 });
 

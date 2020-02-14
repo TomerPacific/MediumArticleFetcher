@@ -4,6 +4,8 @@ const READY_STATE_OK = 4;
 const RESPONSE_STATUS_OK = 200;
 
 let request = null;
+let userData = {};
+let articles = [];
 
 function fetchArticles() {
     request = new XMLHttpRequest();
@@ -28,5 +30,33 @@ function fetchArticles() {
 }
 
 fetchArticles().then(function(response) {
-    console.log(response);
+    getUserDataFromResponse(response.message.items);
+    getArticlesFromResponse(response.message);
 });
+
+
+function getUserDataFromResponse(response) {
+    userData.profileLink = response.url;
+    userData.profileImg = response.image;
+}
+
+function getArticlesFromResponse(mediumArticles) {
+    let article = {};
+    
+    for(let index = 0; index < mediumArticles.length; index ++) {
+        let mediumArticle = mediumArticles[index];
+
+
+        //If an item does not have a category attribute it is not an article
+        if (mediumArticle.hasOwnProperty('category')) {
+            continue;
+        }
+        
+        article.title = mediumArticle.title;
+        article.link = mediumArticle.url;
+        article.publishDate = mediumArticle.pubDate;
+
+        articles.push(article);
+        article = {};
+    }
+}

@@ -7,6 +7,10 @@ let request = null;
 let userData = {};
 let articles = [];
 
+
+let userProfileDiv = document.getElementById('userProfile');
+let articlesList = document.getElementById('articles');
+
 function fetchArticles() {
     request = new XMLHttpRequest();
     let url = "https://medium-fetcher.herokuapp.com/medium";
@@ -32,6 +36,7 @@ function fetchArticles() {
 fetchArticles().then(function(response) {
     getUserDataFromResponse(response.message.items);
     getArticlesFromResponse(response.message);
+    populateUserData();
 });
 
 
@@ -46,7 +51,6 @@ function getArticlesFromResponse(mediumArticles) {
     for(let index = 0; index < mediumArticles.length; index ++) {
         let mediumArticle = mediumArticles[index];
 
-
         //If an item does not have a category attribute it is not an article
         if (mediumArticle.hasOwnProperty('category')) {
             continue;
@@ -59,4 +63,15 @@ function getArticlesFromResponse(mediumArticles) {
         articles.push(article);
         article = {};
     }
+}
+
+
+function populateUserData() {
+    let userAvatar = document.getElementById('userAvatar');
+    let userName = document.getElementById('username');
+
+    userName.innerHTML = 'TomerPacific';
+    userAvatar.setAttribute('src', userData.profileImg);
+    userAvatar.style.width = '200px';
+    userAvatar.style.height = '200px';
 }

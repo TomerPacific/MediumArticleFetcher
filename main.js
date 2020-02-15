@@ -42,8 +42,8 @@ fetchArticles().then(function(response) {
 
 function getUserDataFromResponse(response) {
     return {
-        profileLink = response.url,
-        profileImg = response.image
+        profileLink : response.url,
+        profileImg : response.image
     };
 }
 

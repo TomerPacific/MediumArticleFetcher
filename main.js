@@ -69,13 +69,24 @@ function getArticlesFromResponse(mediumArticles) {
 
 
 function populateUserData(userData) {
-    let userAvatar = document.getElementById('userAvatar');
-    let userName = document.getElementById('username');
+    let anchorElement = document.createElement('a');
+    let userAvatar = document.createElement('image'); 
+    let userName = document.createElement('h2');
 
     userName.innerHTML = 'TomerPacific';
+    userName.setAttribute('id', 'username');
+
     userAvatar.setAttribute('src', userData.profileImg);
+    userAvatar.setAttribute('id', 'userAvatar');
     userAvatar.style.width = '200px';
     userAvatar.style.height = '200px';
+
+    anchorElement.href = userData.profileLink;
+    anchorElement.setAttribute('target', '_blank');
+    anchorElement.appendChild(userAvatar);
+
+    userProfileDiv.appendChild(userName);
+    userProfileDiv.appendChild(anchorElement);
 }
 
 function populateArticles() {

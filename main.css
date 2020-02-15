@@ -9,3 +9,8 @@
 #articles {
     list-style: none;
 }
+
+#articles > li > a {
+    text-decoration: none;
+    color: black;
+}

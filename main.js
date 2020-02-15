@@ -53,7 +53,7 @@ function getArticlesFromResponse(mediumArticles) {
         let mediumArticle = mediumArticles[index];
 
         //If an item does not have a category attribute it is not an article
-        if (mediumArticle.hasOwnProperty('category')) {
+        if (!mediumArticle.hasOwnProperty('category')) {
             continue;
         }
         

@@ -70,7 +70,7 @@ function getArticlesFromResponse(mediumArticles) {
 
 function populateUserData(userData) {
     let anchorElement = document.createElement('a');
-    let userAvatar = document.createElement('image'); 
+    let userAvatar = document.createElement('img'); 
     let userName = document.createElement('h2');
 
     userName.innerHTML = 'TomerPacific';

@@ -49,7 +49,7 @@ function getUserDataFromResponse(response) {
 function getArticlesFromResponse(mediumArticles) {
     let article = {};
     
-    for(let index = 0; index < mediumArticles.length; index ++) {
+    for(let index = 0; index < mediumArticles.length; index++) {
         let mediumArticle = mediumArticles[index];
 
         //If an item does not have a category attribute it is not an article
@@ -80,7 +80,7 @@ function populateUserData() {
 function populateArticles() {
     let liElem = null;
     let anchorElem = null;
-    for(let index = 0; index < mediumArticles.length; index ++) {
+    for(let index = 0; index < articles.length; index++) {
 
         let liElem = document.createElement('li');
         let anchorElem = document.createElement('a');

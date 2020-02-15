@@ -37,6 +37,7 @@ fetchArticles().then(function(response) {
     getUserDataFromResponse(response.message);
     getArticlesFromResponse(response.message.items);
     populateUserData();
+    populateArticles();
 });
 
 
@@ -74,4 +75,22 @@ function populateUserData() {
     userAvatar.setAttribute('src', userData.profileImg);
     userAvatar.style.width = '200px';
     userAvatar.style.height = '200px';
+}
+
+function populateArticles() {
+    let liElem = null;
+    let anchorElem = null;
+    for(let index = 0; index < mediumArticles.length; index ++) {
+
+        let liElem = document.createElement('li');
+        let anchorElem = document.createElement('a');
+
+        let article = articles[index];
+        anchorElem.href = article.link;
+        anchorElem.innerHTML = article.title;
+        anchorElem.setAttribute('target', '_blank');
+
+        liElem.appendChild(anchorElem);
+        articlesList.appendChild(liElem);
+    }
 }

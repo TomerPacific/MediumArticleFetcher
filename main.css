@@ -1,3 +1,11 @@
 #container {
     text-align: center;
 }
+
+#userAvatar {
+    border: 2px solid black;
+}
+
+#articles {
+    list-style: none;
+}

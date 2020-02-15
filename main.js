@@ -4,7 +4,6 @@ const READY_STATE_OK = 4;
 const RESPONSE_STATUS_OK = 200;
 
 let request = null;
-let userData = {};
 let articles = [];
 
 
@@ -34,16 +33,18 @@ function fetchArticles() {
 }
 
 fetchArticles().then(function(response) {
-    getUserDataFromResponse(response.message);
+    let userData = getUserDataFromResponse(response.message);
     getArticlesFromResponse(response.message.items);
-    populateUserData();
+    populateUserData(userData);
     populateArticles();
 });
 
 
 function getUserDataFromResponse(response) {
-    userData.profileLink = response.url;
-    userData.profileImg = response.image;
+    return {
+        profileLink = response.url,
+        profileImg = response.image
+    };
 }
 
 function getArticlesFromResponse(mediumArticles) {
@@ -67,7 +68,7 @@ function getArticlesFromResponse(mediumArticles) {
 }
 
 
-function populateUserData() {
+function populateUserData(userData) {
     let userAvatar = document.getElementById('userAvatar');
     let userName = document.getElementById('username');
 

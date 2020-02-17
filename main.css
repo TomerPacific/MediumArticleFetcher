@@ -14,3 +14,8 @@
     text-decoration: none;
     color: black;
 }
+
+#articles > li > a:hover {
+    color: lightslategrey;
+    font-weight: bold;
+}

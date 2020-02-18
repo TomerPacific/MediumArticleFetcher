@@ -9,6 +9,7 @@ let articles = [];
 
 let userProfileDiv = document.getElementById('userProfile');
 let articlesList = document.getElementById('articles');
+let spinner = document.querySelector('lds-grid');
 
 function fetchArticles() {
     request = new XMLHttpRequest();
@@ -37,6 +38,7 @@ fetchArticles().then(function(response) {
     getArticlesFromResponse(response.message.items);
     populateUserData(userData);
     populateArticles();
+    spinner.style.display = 'none';
 });
 
 

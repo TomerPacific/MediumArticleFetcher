@@ -24,6 +24,12 @@
 /* Spinner */
 
 
+#spinner {
+  display: inline-block;
+  position: relative;
+  margin-top: 10%;
+}
+
 .lds-grid {
     display: inline-block;
     position: relative;

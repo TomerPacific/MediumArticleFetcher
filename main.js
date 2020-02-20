@@ -10,10 +10,11 @@ let articles = [];
 let userProfileDiv = document.getElementById('userProfile');
 let articlesList = document.getElementById('articles');
 let spinner = document.getElementById('spinner');
+let username = document.getElementById('username');
 
 function fetchArticles() {
     request = new XMLHttpRequest();
-    let url = "https://medium-fetcher.herokuapp.com/medium";
+    let url = "https://medium-fetcher.herokuapp.com/medium/" + username.value;
     request.open(GET_REQUEST, url);
     request.setRequestHeader("Content-Type", "application/json");
     try {
@@ -33,13 +34,18 @@ function fetchArticles() {
     
 }
 
-fetchArticles().then(function(response) {
-    let userData = getUserDataFromResponse(response.message);
-    getArticlesFromResponse(response.message.items);
-    populateUserData(userData);
-    populateArticles();
-    spinner.style.display = 'none';
-});
+spinner.style.display = 'none';
+
+function fetchMediumRSSFeed() {
+    spinner.style.display = 'block';
+    fetchArticles().then(function(response) {
+        let userData = getUserDataFromResponse(response.message);
+        getArticlesFromResponse(response.message.items);
+        populateUserData(userData);
+        populateArticles();
+        spinner.style.display = 'none';
+    });
+}
 
 
 function getUserDataFromResponse(response) {

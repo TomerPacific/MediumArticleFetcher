@@ -5,7 +5,7 @@ var feed = require('rss-to-json');
 var port = process.env.PORT || 3000;
 var app = express();
 
-const url = "https://medium.com/feed/@tomerpacific";
+let url = "https://medium.com/feed/@";
 
 
 app.use(bodyParser.json());
@@ -23,8 +23,15 @@ app.use(cors({
   origin: 'https://tomerpacific.github.io'
 }));
 
-
-app.get('/medium', function (req, res) {
+///medium/tomerpacific
+app.get('/medium/*', function (req, res) {
+        
+        if (!req.url) {
+          res.status(404).send({'message': 'No username received'});
+        }
+        
+        let lastSlashIndex = req.url.lastIndexOf('/');
+        url += req.url.substring(lastSlashIndex+1);
         feed.load(url, function(error, rss) {
           if (!error) {
             res.status(200).send({'message': rss});

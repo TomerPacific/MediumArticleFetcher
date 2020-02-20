@@ -31,7 +31,7 @@
 }
 
 .lds-grid {
-    display: inline-block;
+    display: none;
     position: relative;
     margin-top: 10%;
     width: 80px;

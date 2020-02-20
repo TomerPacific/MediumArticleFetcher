@@ -34,10 +34,8 @@ function fetchArticles() {
     
 }
 
-spinner.style.display = 'none';
-
 function fetchMediumRSSFeed() {
-    spinner.style.display = 'block';
+    spinner.style.display = 'inline-block';
     fetchArticles().then(function(response) {
         let userData = getUserDataFromResponse(response.message);
         getArticlesFromResponse(response.message.items);

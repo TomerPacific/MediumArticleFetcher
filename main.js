@@ -11,6 +11,7 @@ let userProfileDiv = document.getElementById('userProfile');
 let articlesList = document.getElementById('articles');
 let spinner = document.getElementById('spinner');
 let username = document.getElementById('username');
+let errorHeader = document.getElementById('errorMessage');
 
 function fetchArticles() {
     request = new XMLHttpRequest();
@@ -35,13 +36,20 @@ function fetchArticles() {
 }
 
 function fetchMediumRSSFeed() {
+    errorHeader.style.display = 'none';
     spinner.style.display = 'inline-block';
-    fetchArticles().then(function(response) {
+    fetchArticles()
+    .then(function(response) {
         let userData = getUserDataFromResponse(response.message);
         getArticlesFromResponse(response.message.items);
         populateUserData(userData);
         populateArticles();
         spinner.style.display = 'none';
+    })
+    .catch(function(errorMessage) {
+        spinner.style.display = 'none';
+        errorHeader.innerHTML = errorMessage.message;
+        errorHeader.style.display = 'inline-block';
     });
 }
 

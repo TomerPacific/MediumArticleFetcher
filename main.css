@@ -25,13 +25,13 @@
 
 
 #spinner {
-  display: inline-block;
+  display: none;
   position: relative;
   margin-top: 10%;
 }
 
 .lds-grid {
-    display: none;
+    display: inline-block;
     position: relative;
     margin-top: 10%;
     width: 80px;

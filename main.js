@@ -29,6 +29,8 @@ function fetchArticles() {
             if (this.readyState === READY_STATE_OK && this.status === RESPONSE_STATUS_OK) {
                 let text = JSON.parse(this.responseText);
                 resolve(text);
+            } else {
+                reject("");
             }
         }
     });
@@ -48,7 +50,7 @@ function fetchMediumRSSFeed() {
     })
     .catch(function(errorMessage) {
         spinner.style.display = 'none';
-        errorHeader.innerHTML = errorMessage.message;
+        errorHeader.innerHTML = errorMessage.message ? errorMessage.message : "An error has occurred.";
         errorHeader.style.display = 'inline-block';
     });
 }

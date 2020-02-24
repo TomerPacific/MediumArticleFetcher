@@ -2,6 +2,7 @@
 const GET_REQUEST = "GET";
 const READY_STATE_OK = 4;
 const RESPONSE_STATUS_OK = 200;
+const ENTER_KEY_CODE = 13;
 
 let request = null;
 let articles = [];
@@ -12,6 +13,13 @@ let articlesList = document.getElementById('articles');
 let spinner = document.getElementById('spinner');
 let username = document.getElementById('username');
 let errorHeader = document.getElementById('errorMessage');
+
+username.addEventListener("keyup", function(event) {
+    if (event.keyCode === ENTER_KEY_CODE) {
+        event.preventDefault();
+        fetchMediumRSSFeed();
+    }
+});
 
 function fetchArticles() {
     request = new XMLHttpRequest();

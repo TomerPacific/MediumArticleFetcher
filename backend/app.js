@@ -5,7 +5,7 @@ var feed = require('rss-to-json');
 var port = process.env.PORT || 3000;
 var app = express();
 
-let url = "https://medium.com/feed/@";
+const baseURL = "https://medium.com/feed/@";
 
 
 app.use(bodyParser.json());
@@ -31,10 +31,12 @@ app.get('/medium/*', function (req, res) {
         }
         
         let lastSlashIndex = req.url.lastIndexOf('/');
-        url += req.url.substring(lastSlashIndex+1);
+        let url = baseURL + req.url.substring(lastSlashIndex+1);
         feed.load(url, function(error, rss) {
           if (!error) {
             res.status(200).send({'message': rss});
+          } else {
+            res.status(404).send({"message": error});
           }
         });
   });

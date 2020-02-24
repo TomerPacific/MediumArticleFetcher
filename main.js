@@ -26,6 +26,7 @@ function fetchArticles() {
     let url = "https://medium-fetcher.herokuapp.com/medium/" + username.value;
     request.open(GET_REQUEST, url);
     request.setRequestHeader("Content-Type", "application/json");
+    request.setRequestHeader("Access-Control-Allow-Origin", "*");
     try {
         request.send(null);
     } catch(exception) {

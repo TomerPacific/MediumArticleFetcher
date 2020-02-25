@@ -126,11 +126,17 @@ function populateArticles() {
 
         let liElem = document.createElement('li');
         let anchorElem = document.createElement('a');
+        let articleImage = document.createElement('img'); 
 
         let article = articles[index];
         anchorElem.href = article.link;
-        anchorElem.innerHTML = article.title;
+        anchorElem.title = article.title;
         anchorElem.setAttribute('target', '_blank');
+
+        articleImage.src = article.imgSrc;
+        articleImage.setAttribute('class', 'articleImg');
+
+        anchorElem.innerHTML = articleImage;
 
         liElem.appendChild(anchorElem);
         articlesList.appendChild(liElem);

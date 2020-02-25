@@ -23,6 +23,11 @@
     font-weight: bold;
 }
 
+.articleImage {
+  width: 200px;
+  height: 200px;
+}
+
 
 /* Spinner */
 

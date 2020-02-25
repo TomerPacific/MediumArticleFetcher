@@ -93,7 +93,7 @@ function getArticlesFromResponse(mediumArticles) {
 function extractImageUrl(text) {
     let srcIndex = text.indexOf("src");
     let widthIndex = text.indexOf("width");
-    let imageSoruce = text.substring(srcIndex + 6, widthIndex - 3);
+    let imageSoruce = text.substring(srcIndex + 5, widthIndex - 3);
     return imageSoruce;
 }
 

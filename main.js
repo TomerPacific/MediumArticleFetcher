@@ -83,10 +83,17 @@ function getArticlesFromResponse(mediumArticles) {
         article.title = mediumArticle.title;
         article.link = mediumArticle.url;
         article.publishDate = mediumArticle.pubDate;
-
+        article.imgSrc = extractImageUrl(mediumArticle.description);
         articles.push(article);
         article = {};
     }
+}
+
+function extractImageUrl(text) {
+    let srcIndex = text.indexOf("src");
+    let widthIndex = text.indexOf("width");
+    let imageSoruce = text.substring(srcIndex + 6, widthIndex - 3);
+    return imageSoruce;
 }
 
 

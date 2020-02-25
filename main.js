@@ -84,6 +84,7 @@ function getArticlesFromResponse(mediumArticles) {
         article.link = mediumArticle.url;
         article.publishDate = mediumArticle.pubDate;
         article.imgSrc = extractImageUrl(mediumArticle.description);
+        console.log(article.imgSrc);
         articles.push(article);
         article = {};
     }

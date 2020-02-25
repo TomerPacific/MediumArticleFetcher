@@ -83,7 +83,9 @@ function getArticlesFromResponse(mediumArticles) {
         article.title = mediumArticle.title;
         article.link = mediumArticle.url;
         article.publishDate = mediumArticle.pubDate;
-        article.imgSrc = extractImageUrl(mediumArticle.description);
+        if (mediumArticle.description) {
+            article.imgSrc = extractImageUrl(mediumArticle.description);
+        }
        
         articles.push(article);
         article = {};
@@ -126,17 +128,19 @@ function populateArticles() {
 
         let liElem = document.createElement('li');
         let anchorElem = document.createElement('a');
-        let articleImage = document.createElement('img'); 
 
         let article = articles[index];
         anchorElem.href = article.link;
         anchorElem.title = article.title;
+        anchorElem.innerHTML = article.title;
         anchorElem.setAttribute('target', '_blank');
 
-        articleImage.src = article.imgSrc;
-        articleImage.setAttribute('class', 'articleImg');
-
-        anchorElem.appendChild(articleImage);
+        if (article.imgSrc) {
+            let articleImage = document.createElement('img'); 
+            articleImage.src = article.imgSrc;
+            articleImage.setAttribute('class', 'articleImg');
+            anchorElem.appendChild(articleImage);
+        }
 
         liElem.appendChild(anchorElem);
         articlesList.appendChild(liElem);

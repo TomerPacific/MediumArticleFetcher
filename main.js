@@ -84,7 +84,7 @@ function getArticlesFromResponse(mediumArticles) {
         article.link = mediumArticle.url;
         article.publishDate = mediumArticle.pubDate;
         article.imgSrc = extractImageUrl(mediumArticle.description);
-        console.log(article.imgSrc);
+       
         articles.push(article);
         article = {};
     }
@@ -136,7 +136,7 @@ function populateArticles() {
         articleImage.src = article.imgSrc;
         articleImage.setAttribute('class', 'articleImg');
 
-        anchorElem.innerHTML = articleImage;
+        anchorElem.appendChild(articleImage);
 
         liElem.appendChild(anchorElem);
         articlesList.appendChild(liElem);

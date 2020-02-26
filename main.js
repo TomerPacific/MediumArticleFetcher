@@ -44,8 +44,7 @@ function fetchArticles() {
 }
 
 function fetchMediumRSSFeed() {
-    errorHeader.style.display = 'none';
-    spinner.style.display = 'inline-block';
+    resetContent();
     fetchArticles()
     .then(function(response) {
         let userData = getUserDataFromResponse(response.message);
@@ -61,6 +60,15 @@ function fetchMediumRSSFeed() {
     });
 }
 
+function resetContent() {
+    errorHeader.style.display = 'none';
+    spinner.style.display = 'inline-block';
+    userProfileDiv.innerHTML = '';
+    articlesList.innerHTML = '';
+    artices = [];
+
+
+}
 
 function getUserDataFromResponse(response) {
     return {
@@ -105,7 +113,7 @@ function populateUserData(userData) {
     let userAvatar = document.createElement('img'); 
     let userName = document.createElement('h2');
 
-    userName.innerHTML = 'TomerPacific';
+    userName.innerHTML = username.value;
     userName.setAttribute('id', 'username');
 
     userAvatar.setAttribute('src', userData.profileImg);

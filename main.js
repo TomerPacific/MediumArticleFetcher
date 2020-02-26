@@ -65,9 +65,7 @@ function resetContent() {
     spinner.style.display = 'inline-block';
     userProfileDiv.innerHTML = '';
     articlesList.innerHTML = '';
-    artices = [];
-
-
+    articles = [];
 }
 
 function getUserDataFromResponse(response) {

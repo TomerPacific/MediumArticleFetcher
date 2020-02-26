@@ -132,7 +132,6 @@ function populateArticles() {
         let article = articles[index];
         anchorElem.href = article.link;
         anchorElem.title = article.title;
-        anchorElem.innerHTML = article.title;
         anchorElem.setAttribute('target', '_blank');
 
         if (article.imgSrc) {
@@ -140,6 +139,8 @@ function populateArticles() {
             articleImage.src = article.imgSrc;
             articleImage.setAttribute('class', 'articleImg');
             anchorElem.appendChild(articleImage);
+        } else {
+            anchorElem.innerHTML = article.title;
         }
 
         liElem.appendChild(anchorElem);

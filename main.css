@@ -14,7 +14,7 @@
 }
 
 #articles > li {
-  display: inline-block;
+  display: block;
 }
 
 #articles > li > a {

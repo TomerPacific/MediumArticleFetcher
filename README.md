@@ -2,7 +2,7 @@
 Fetch and present Medium articles by me
 
 
-![MediumArticleFetcher](https://media.giphy.com/media/dyw4M8I3hP7Jjd1ibQ/giphy.gif)
+![MediumArticleFetcher](https://media.giphy.com/media/fX7led2wjJJE5hiEAE/giphy.gif)
 
 
 

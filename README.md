@@ -1,5 +1,5 @@
 # MediumArticleFetcher
-Fetch and present Medium articles by me
+Fetch and present Medium articles written by me
 
 
 ![MediumArticleFetcher](https://media.giphy.com/media/fX7led2wjJJE5hiEAE/giphy.gif)

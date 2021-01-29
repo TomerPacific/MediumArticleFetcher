@@ -37,6 +37,9 @@ function fetchArticles() {
             if (this.readyState === READY_STATE_OK && this.status === RESPONSE_STATUS_OK) {
                 let text = JSON.parse(this.responseText);
                 resolve(text);
+            } else if (this.status !== RESPONSE_STATUS_OK) {
+                let errorMsg = this.status.statusText ? this.status.statusText : "Error in response";
+                reject(errorMsg);
             }
         }
     });

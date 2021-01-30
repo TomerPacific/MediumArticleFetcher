@@ -3,10 +3,10 @@ const GET_REQUEST = "GET";
 const READY_STATE_OK = 4;
 const RESPONSE_STATUS_OK = 200;
 const ENTER_KEY_CODE = 13;
+const ENDPOINT = "https://medium-fetcher.herokuapp.com/medium/";
 
 let request = null;
 let articles = [];
-
 
 let userProfileDiv = document.getElementById('userProfile');
 let articlesList = document.getElementById('articles');
@@ -23,7 +23,7 @@ username.addEventListener("keyup", function(event) {
 
 function fetchArticles() {
     request = new XMLHttpRequest();
-    let url = "https://medium-fetcher.herokuapp.com/medium/" + username.value;
+    let url = ENDPOINT + username.value;
     request.open(GET_REQUEST, url);
     request.setRequestHeader("Content-Type", "application/json");
     try {
@@ -47,6 +47,11 @@ function fetchArticles() {
 }
 
 function fetchMediumRSSFeed() {
+
+    if (username.value.length === 0) {
+        return;
+    }
+
     resetContent();
     fetchArticles()
     .then(function(response) {
@@ -131,8 +136,6 @@ function populateUserData(userData) {
 }
 
 function populateArticles() {
-    let liElem = null;
-    let anchorElem = null;
     for(let index = 0; index < articles.length; index++) {
 
         let liElem = document.createElement('li');

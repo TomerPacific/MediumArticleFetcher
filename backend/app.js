@@ -23,25 +23,24 @@ app.use(cors({
   origin: 'https://tomerpacific.github.io'
 }));
 
-///medium/tomerpacific
 app.get('/medium/*', function (req, res) {
         
         if (!req.url) {
-          res.status(404).send({'message': 'No username received'});
+          return res.status(404).send({'message': 'No username received'});
         }
         
         let lastSlashIndex = req.url.lastIndexOf('/');
         let url = baseURL + req.url.substring(lastSlashIndex+1);
         feed.load(url, function(error, rss) {
           if (!error) {
-            res.status(200).send({'message': rss});
+            return res.status(200).send({'message': rss});
           } else {
-            res.status(404).send({"message": error});
+            return res.status(404).send({"message": error});
           }
         });
   });
 
 
 app.listen(port, function () {
- console.log('Example app listening on port ' + port);
+ console.log('MediumArticleFetcher listening on port ' + port);
 });

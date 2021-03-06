@@ -1,9 +1,9 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var cors = require('cors');
-var feed = require('rss-to-json');
-var port = process.env.PORT || 3000;
-var app = express();
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const feed = require('rss-to-json');
+const port = process.env.PORT || 3000;
+const app = express();
 
 const baseURL = "https://medium.com/feed/@";
 

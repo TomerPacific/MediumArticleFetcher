@@ -1,18 +1,18 @@
 
-const GET_REQUEST = "GET";
-const READY_STATE_OK = 4;
-const RESPONSE_STATUS_OK = 200;
-const ENTER_KEY_CODE = 13;
-const ENDPOINT = "https://medium-fetcher.herokuapp.com/medium/";
+const GET_REQUEST: string = "GET";
+const READY_STATE_OK: Number = 4;
+const RESPONSE_STATUS_OK: Number = 200;
+const ENTER_KEY_CODE: Number = 13;
+const ENDPOINT: string = "https://medium-fetcher.herokuapp.com/medium/";
 
-let request = null;
-let articles = [];
+let request: XMLHttpRequest = null;
+let articles: Article[] = [];
 
-let userProfileDiv = document.getElementById('userProfile');
-let articlesList = document.getElementById('articles');
-let spinner = document.getElementById('spinner');
-let username = document.getElementById('username');
-let errorHeader = document.getElementById('errorMessage');
+let userProfileDiv: HTMLElement = document.getElementById('userProfile');
+let articlesList:HTMLElement = document.getElementById('articles');
+let spinner: HTMLElement = document.getElementById('spinner');
+let username: HTMLElement = document.getElementById('username');
+let errorHeader: HTMLElement = document.getElementById('errorMessage');
 
 username.addEventListener("keyup", function(event) {
     if (event.keyCode === ENTER_KEY_CODE) {
@@ -23,7 +23,7 @@ username.addEventListener("keyup", function(event) {
 
 function fetchArticles() {
     request = new XMLHttpRequest();
-    let url = ENDPOINT + username.value;
+    let url = ENDPOINT + (<HTMLInputElement>username).value;
     request.open(GET_REQUEST, url);
     request.setRequestHeader("Content-Type", "application/json");
     try {
@@ -38,7 +38,7 @@ function fetchArticles() {
                 let text = JSON.parse(this.responseText);
                 resolve(text);
             } else if (this.status !== RESPONSE_STATUS_OK) {
-                let errorMsg = this.status.statusText ? this.status.statusText : "Error in response";
+                let errorMsg = this.statusText ? this.statusText : "Error in response";
                 reject(errorMsg);
             }
         }
@@ -48,13 +48,13 @@ function fetchArticles() {
 
 function fetchMediumRSSFeed() {
 
-    if (username.value.length === 0) {
+    if ((<HTMLInputElement>username).value.length === 0) {
         return;
     }
 
     resetContent();
     fetchArticles()
-    .then(function(response) {
+    .then(function(response: ServerResponse) {
         let userData = getUserDataFromResponse(response.message);
         getArticlesFromResponse(response.message.items);
         populateUserData(userData);
@@ -84,7 +84,12 @@ function getUserDataFromResponse(response) {
 }
 
 function getArticlesFromResponse(mediumArticles) {
-    let article = {};
+    let article: Article = {
+        title: "",
+        link: "",
+        publishDate: "",
+        imgSrc: ""
+    };
     
     for(let index = 0; index < mediumArticles.length; index++) {
         let mediumArticle = mediumArticles[index];
@@ -102,7 +107,12 @@ function getArticlesFromResponse(mediumArticles) {
         }
        
         articles.push(article);
-        article = {};
+        article = {
+            title: "",
+            link: "",
+            publishDate: "",
+            imgSrc: ""
+        };
     }
 }
 
@@ -119,7 +129,7 @@ function populateUserData(userData) {
     let userAvatar = document.createElement('img'); 
     let userName = document.createElement('h2');
 
-    userName.innerHTML = username.value;
+    userName.innerHTML = (<HTMLInputElement>username).value;
     userName.setAttribute('id', 'username');
 
     userAvatar.setAttribute('src', userData.profileImg);

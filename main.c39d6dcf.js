@@ -204,9 +204,14 @@ function getArticlesFromResponse(mediumArticles) {
       continue;
     }
 
-    var article = new Article(mediumArticle.title, mediumArticle.url, mediumArticle.pubDate, mediumArticle.description ? extractImageUrl(mediumArticle.description) : "");
+    var article = new Article(mediumArticle.title, mediumArticle.url, convertPublishTimeToDate(mediumArticle.published));
     articles.push(article);
   }
+}
+
+function convertPublishTimeToDate(publishTimeInUnix) {
+  var date = new Date(Number(publishTimeInUnix) * 1000);
+  return date.getTime().toString();
 }
 
 function extractImageUrl(text) {
@@ -283,7 +288,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54918" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55645" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

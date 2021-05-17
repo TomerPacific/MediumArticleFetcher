@@ -96,11 +96,16 @@ function getArticlesFromResponse(mediumArticles) {
         let article: Article = new Article(
             mediumArticle.title,
              mediumArticle.url, 
-             mediumArticle.pubDate,
-             mediumArticle.description ? extractImageUrl(mediumArticle.description) : "");
+             convertPublishTimeToDate(mediumArticle.published)
+             );
 
         articles.push(article);
     }
+}
+
+function convertPublishTimeToDate(publishTimeInUnix: string): string {
+    let date : Date = new Date(Number(publishTimeInUnix) * 1000);
+    return date.getTime().toString();
 }
 
 function extractImageUrl(text) {

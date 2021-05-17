@@ -1,4 +1,4 @@
-class Article {
+export class Article {
     title: string;
     link: string;
     publishDate: string;

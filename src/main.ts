@@ -1,4 +1,7 @@
 
+import { Article } from "./article";
+
+
 const GET_REQUEST: string = "GET";
 const READY_STATE_OK: Number = 4;
 const RESPONSE_STATUS_OK: Number = 200;

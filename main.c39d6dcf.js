@@ -117,7 +117,33 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"main.ts":[function(require,module,exports) {
+})({"article.ts":[function(require,module,exports) {
+"use strict";
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var Article = function Article(_title, _link, _publishDate) {
+  _classCallCheck(this, Article);
+
+  this.title = _title;
+  this.link = _link;
+  this.publishDate = _publishDate;
+};
+
+exports.Article = Article;
+},{}],"main.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var article_1 = require("./article");
+
 var GET_REQUEST = "GET";
 var READY_STATE_OK = 4;
 var RESPONSE_STATUS_OK = 200;
@@ -204,7 +230,7 @@ function getArticlesFromResponse(mediumArticles) {
       continue;
     }
 
-    var article = new Article(mediumArticle.title, mediumArticle.url, convertPublishTimeToDate(mediumArticle.published));
+    var article = new article_1.Article(mediumArticle.title, mediumArticle.url, convertPublishTimeToDate(mediumArticle.published));
     articles.push(article);
   }
 }
@@ -260,7 +286,7 @@ function populateArticles() {
     articlesList.appendChild(liElem);
   }
 }
-},{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./article":"article.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -288,7 +314,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55645" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56095" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

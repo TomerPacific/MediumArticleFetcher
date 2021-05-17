@@ -84,12 +84,6 @@ function getUserDataFromResponse(response) {
 }
 
 function getArticlesFromResponse(mediumArticles) {
-    let article: Article = {
-        title: "",
-        link: "",
-        publishDate: "",
-        imgSrc: ""
-    };
     
     for(let index = 0; index < mediumArticles.length; index++) {
         let mediumArticle = mediumArticles[index];
@@ -98,21 +92,14 @@ function getArticlesFromResponse(mediumArticles) {
         if (!mediumArticle.hasOwnProperty('category')) {
             continue;
         }
-        
-        article.title = mediumArticle.title;
-        article.link = mediumArticle.url;
-        article.publishDate = mediumArticle.pubDate;
-        if (mediumArticle.description) {
-            article.imgSrc = extractImageUrl(mediumArticle.description);
-        }
        
+        let article: Article = new Article(
+            mediumArticle.title,
+             mediumArticle.url, 
+             mediumArticle.pubDate,
+             mediumArticle.description ? extractImageUrl(mediumArticle.description) : "");
+
         articles.push(article);
-        article = {
-            title: "",
-            link: "",
-            publishDate: "",
-            imgSrc: ""
-        };
     }
 }
 

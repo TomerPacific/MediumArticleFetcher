@@ -100,19 +100,6 @@ function getArticlesFromResponse(mediumArticles: Article[]) {
     }
 }
 
-function convertPublishTimeToDate(publishTimeInUnix: string): string {
-    let date : Date = new Date(Number(publishTimeInUnix) * 1000);
-    return date.getTime().toString();
-}
-
-function extractImageUrl(text) {
-    let srcIndex = text.indexOf("src");
-    let widthIndex = text.indexOf("width");
-    let imageSoruce = text.substring(srcIndex + 5, widthIndex - 2);
-    return imageSoruce;
-}
-
-
 function populateUserData(userData) {
     let anchorElement = document.createElement('a');
     let userAvatar = document.createElement('img'); 

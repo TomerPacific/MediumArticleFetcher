@@ -1,6 +1,6 @@
 
 import { Article } from "./article";
-
+import { ServerResponse } from "./serverResponse";
 
 const GET_REQUEST: string = "GET";
 const READY_STATE_OK: Number = 4;
@@ -58,7 +58,7 @@ function fetchMediumRSSFeed() {
     resetContent();
     fetchArticles()
     .then(function(response: ServerResponse) {
-        let userData = getUserDataFromResponse(response.message);
+        let userData = getUserDataFromResponse(response);
         getArticlesFromResponse(response.message.items);
         populateUserData(userData);
         populateArticles();
@@ -79,14 +79,14 @@ function resetContent() {
     articles = [];
 }
 
-function getUserDataFromResponse(response) {
+function getUserDataFromResponse(response: ServerResponse) {
     return {
-        profileLink : response.url,
-        profileImg : response.image
+        profileLink : response.message.link,
+        profileImg : response.message.image
     };
 }
 
-function getArticlesFromResponse(mediumArticles) {
+function getArticlesFromResponse(mediumArticles: Article[]) {
     
     for(let index = 0; index < mediumArticles.length; index++) {
         let mediumArticle = mediumArticles[index];
@@ -95,14 +95,8 @@ function getArticlesFromResponse(mediumArticles) {
         if (!mediumArticle.hasOwnProperty('category')) {
             continue;
         }
-       
-        let article: Article = new Article(
-            mediumArticle.title,
-             mediumArticle.url, 
-             convertPublishTimeToDate(mediumArticle.published)
-             );
 
-        articles.push(article);
+        articles.push(mediumArticle);
     }
 }
 

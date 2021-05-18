@@ -117,33 +117,12 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"article.ts":[function(require,module,exports) {
-"use strict";
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var Article = function Article(_title, _link, _publishDate) {
-  _classCallCheck(this, Article);
-
-  this.title = _title;
-  this.link = _link;
-  this.publishDate = _publishDate;
-};
-
-exports.Article = Article;
-},{}],"main.ts":[function(require,module,exports) {
+})({"main.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var article_1 = require("./article");
-
 var GET_REQUEST = "GET";
 var READY_STATE_OK = 4;
 var RESPONSE_STATUS_OK = 200;
@@ -195,7 +174,7 @@ function fetchMediumRSSFeed() {
 
   resetContent();
   fetchArticles().then(function (response) {
-    var userData = getUserDataFromResponse(response.message);
+    var userData = getUserDataFromResponse(response);
     getArticlesFromResponse(response.message.items);
     populateUserData(userData);
     populateArticles();
@@ -217,8 +196,8 @@ function resetContent() {
 
 function getUserDataFromResponse(response) {
   return {
-    profileLink: response.url,
-    profileImg: response.image
+    profileLink: response.message.link,
+    profileImg: response.message.image
   };
 }
 
@@ -230,8 +209,7 @@ function getArticlesFromResponse(mediumArticles) {
       continue;
     }
 
-    var article = new article_1.Article(mediumArticle.title, mediumArticle.url, convertPublishTimeToDate(mediumArticle.published));
-    articles.push(article);
+    articles.push(mediumArticle);
   }
 }
 
@@ -277,7 +255,7 @@ function populateArticles() {
     articlesList.appendChild(liElem);
   }
 }
-},{"./article":"article.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -305,7 +283,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53166" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53912" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

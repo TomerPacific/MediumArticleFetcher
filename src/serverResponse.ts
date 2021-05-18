@@ -1,5 +1,12 @@
-class ServerResponse {
+import { Article } from "./article";
+
+export class ServerResponse {
     message: {
-        items: Object;
+        category: string[];
+        description: string;
+        items: Article[];
+        image: string;
+        link: string;
+        title: string;
     };
 }

@@ -1,6 +1,7 @@
 
 import { Article } from "./article";
 import { ServerResponse } from "./serverResponse";
+import { UserProfile } from "./userProfile";
 
 const GET_REQUEST: string = "GET";
 const READY_STATE_OK: Number = 4;
@@ -58,7 +59,7 @@ function fetchMediumRSSFeed() {
     resetContent();
     fetchArticles()
     .then(function(response: ServerResponse) {
-        let userData = getUserDataFromResponse(response);
+        let userData: UserProfile = new UserProfile(response.message.link, response.message.image);
         getArticlesFromResponse(response.message.items);
         populateUserData(userData);
         populateArticles();
@@ -79,13 +80,6 @@ function resetContent() {
     articles = [];
 }
 
-function getUserDataFromResponse(response: ServerResponse) {
-    return {
-        profileLink : response.message.link,
-        profileImg : response.message.image
-    };
-}
-
 function getArticlesFromResponse(mediumArticles: Article[]) {
     
     for(let index = 0; index < mediumArticles.length; index++) {
@@ -100,7 +94,7 @@ function getArticlesFromResponse(mediumArticles: Article[]) {
     }
 }
 
-function populateUserData(userData) {
+function populateUserData(userData: UserProfile) {
     let anchorElement = document.createElement('a');
     let userAvatar = document.createElement('img'); 
     let userName = document.createElement('h2');

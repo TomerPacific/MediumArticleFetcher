@@ -1,11 +1,13 @@
 export class Article {
-    title: string;
+    author: string;
+    category: string[];
+    content: string;
+    content_encoded: string;
+    created: number;
+    enclosures: string[];
+    id: string;
     link: string;
-    publishDate: string;
-
-    constructor(_title: string, _link: string, _publishDate: string) {
-        this.title = _title;
-        this.link = _link
-        this.publishDate = _publishDate;
-    }
+    published: number;
+    url:string;
+    title: string;
 }

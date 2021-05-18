@@ -147,18 +147,11 @@ function populateArticles() {
         let anchorElem = document.createElement('a');
 
         let article = articles[index];
+        
         anchorElem.href = article.link;
         anchorElem.title = article.title;
         anchorElem.setAttribute('target', '_blank');
-
-        if (article.imgSrc) {
-            let articleImage = document.createElement('img'); 
-            articleImage.src = article.imgSrc;
-            articleImage.setAttribute('class', 'articleImg');
-            anchorElem.appendChild(articleImage);
-        } else {
-            anchorElem.innerHTML = article.title;
-        }
+        anchorElem.innerHTML = article.title;
 
         liElem.appendChild(anchorElem);
         articlesList.appendChild(liElem);

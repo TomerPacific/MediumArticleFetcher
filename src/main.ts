@@ -15,12 +15,17 @@ let articlesList:HTMLElement = document.getElementById('articles');
 let spinner: HTMLElement = document.getElementById('spinner');
 let username: HTMLElement = document.getElementById('username');
 let errorHeader: HTMLElement = document.getElementById('errorMessage');
+let searchBtn: HTMLElement = document.getElementById('search');
 
 username.addEventListener("keyup", function(event: KeyboardEvent) {
     if (event.keyCode === ENTER_KEY_CODE) {
         event.preventDefault();
         fetchMediumRSSFeed();
     }
+});
+
+searchBtn.addEventListener("click", function(event: MouseEvent) {
+    fetchMediumRSSFeed();
 });
 
 function fetchArticles() {

@@ -154,11 +154,15 @@ var articlesList = document.getElementById('articles');
 var spinner = document.getElementById('spinner');
 var username = document.getElementById('username');
 var errorHeader = document.getElementById('errorMessage');
+var searchBtn = document.getElementById('search');
 username.addEventListener("keyup", function (event) {
   if (event.keyCode === ENTER_KEY_CODE) {
     event.preventDefault();
     fetchMediumRSSFeed();
   }
+});
+searchBtn.addEventListener("click", function (event) {
+  fetchMediumRSSFeed();
 });
 
 function fetchArticles() {
@@ -281,7 +285,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60572" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60877" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -6,7 +6,7 @@ import { UserProfile } from "./userProfile";
 const GET_REQUEST: string = "GET";
 const READY_STATE_OK: Number = 4;
 const RESPONSE_STATUS_OK: Number = 200;
-const ENTER_KEY_CODE: string = "Enter";
+const ENTER_KEY: string = "Enter";
 const ENDPOINT: string = "https://medium-fetcher.herokuapp.com/medium/";
 
 let request: XMLHttpRequest = null;
@@ -18,7 +18,7 @@ let errorHeader: HTMLElement = document.getElementById('errorMessage');
 let searchBtn: HTMLElement = document.getElementById('search');
 
 username.addEventListener("keyup", function(event: KeyboardEvent) {
-    if (event.key === ENTER_KEY_CODE) {
+    if (event.key === ENTER_KEY) {
         event.preventDefault();
         fetchMediumRSSFeed();
     }

@@ -146,7 +146,7 @@ var userProfile_1 = require("./userProfile");
 var GET_REQUEST = "GET";
 var READY_STATE_OK = 4;
 var RESPONSE_STATUS_OK = 200;
-var ENTER_KEY_CODE = 13;
+var ENTER_KEY_CODE = "Enter";
 var ENDPOINT = "https://medium-fetcher.herokuapp.com/medium/";
 var request = null;
 var userProfileDiv = document.getElementById('userProfile');
@@ -156,7 +156,7 @@ var username = document.getElementById('username');
 var errorHeader = document.getElementById('errorMessage');
 var searchBtn = document.getElementById('search');
 username.addEventListener("keyup", function (event) {
-  if (event.keyCode === ENTER_KEY_CODE) {
+  if (event.key === ENTER_KEY_CODE) {
     event.preventDefault();
     fetchMediumRSSFeed();
   }
@@ -285,7 +285,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60877" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61399" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

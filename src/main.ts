@@ -10,15 +10,13 @@ const ENTER_KEY_CODE: Number = 13;
 const ENDPOINT: string = "https://medium-fetcher.herokuapp.com/medium/";
 
 let request: XMLHttpRequest = null;
-let articles: Article[] = [];
-
 let userProfileDiv: HTMLElement = document.getElementById('userProfile');
 let articlesList:HTMLElement = document.getElementById('articles');
 let spinner: HTMLElement = document.getElementById('spinner');
 let username: HTMLElement = document.getElementById('username');
 let errorHeader: HTMLElement = document.getElementById('errorMessage');
 
-username.addEventListener("keyup", function(event) {
+username.addEventListener("keyup", function(event: KeyboardEvent) {
     if (event.keyCode === ENTER_KEY_CODE) {
         event.preventDefault();
         fetchMediumRSSFeed();
@@ -51,18 +49,18 @@ function fetchArticles() {
 }
 
 function fetchMediumRSSFeed() {
-
+    let articles: Article[] = [];
     if ((<HTMLInputElement>username).value.length === 0) {
         return;
     }
 
-    resetContent();
+    resetContent(articles);
     fetchArticles()
     .then(function(response: ServerResponse) {
         let userData: UserProfile = new UserProfile(response.message.link, response.message.image);
-        getArticlesFromResponse(response.message.items);
+        articles = getArticlesFromResponse(response.message.items);
         populateUserData(userData);
-        populateArticles();
+        populateArticles(articles);
         spinner.style.display = 'none';
     })
     .catch(function(errorMessage) {
@@ -72,7 +70,7 @@ function fetchMediumRSSFeed() {
     });
 }
 
-function resetContent() {
+function resetContent(articles: Article[]) {
     errorHeader.style.display = 'none';
     spinner.style.display = 'inline-block';
     userProfileDiv.innerHTML = '';
@@ -80,18 +78,14 @@ function resetContent() {
     articles = [];
 }
 
-function getArticlesFromResponse(mediumArticles: Article[]) {
+function getArticlesFromResponse(mediumArticles: Article[]) : Article[] {
     
-    for(let index = 0; index < mediumArticles.length; index++) {
-        let mediumArticle = mediumArticles[index];
+    //If an item does not have a category attribute it is not an article
+    let filteredArticles = mediumArticles.filter(function(article: Article) {
+        return article.hasOwnProperty('category');
+    });
 
-        //If an item does not have a category attribute it is not an article
-        if (!mediumArticle.hasOwnProperty('category')) {
-            continue;
-        }
-
-        articles.push(mediumArticle);
-    }
+    return filteredArticles;
 }
 
 function populateUserData(userData: UserProfile) {
@@ -115,7 +109,7 @@ function populateUserData(userData: UserProfile) {
     userProfileDiv.appendChild(anchorElement);
 }
 
-function populateArticles() {
+function populateArticles(articles: Article[]) {
     for(let index = 0; index < articles.length; index++) {
 
         let liElem = document.createElement('li');

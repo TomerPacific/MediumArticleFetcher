@@ -2,12 +2,7 @@
 import { Article } from "./article";
 import { ServerResponse } from "./serverResponse";
 import { UserProfile } from "./userProfile";
-
-const GET_REQUEST: string = "GET";
-const READY_STATE_OK: Number = 4;
-const RESPONSE_STATUS_OK: Number = 200;
-const ENTER_KEY: string = "Enter";
-const ENDPOINT: string = "https://medium-fetcher.herokuapp.com/medium/";
+import { GET_REQUEST, READY_STATE_OK, RESPONSE_STATUS_OK, ENTER_KEY, ENDPOINT } from "./constants";
 
 let request: XMLHttpRequest = null;
 let userProfileDiv: HTMLElement = document.getElementById('userProfile');

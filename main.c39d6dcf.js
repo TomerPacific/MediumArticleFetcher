@@ -117,19 +117,38 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"main.ts":[function(require,module,exports) {
+})({"userProfile.ts":[function(require,module,exports) {
+"use strict";
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var UserProfile = function UserProfile(link, image) {
+  _classCallCheck(this, UserProfile);
+
+  this.profileLink = link;
+  this.profileImg = image;
+};
+
+exports.UserProfile = UserProfile;
+},{}],"main.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var userProfile_1 = require("./userProfile");
+
 var GET_REQUEST = "GET";
 var READY_STATE_OK = 4;
 var RESPONSE_STATUS_OK = 200;
 var ENTER_KEY_CODE = 13;
 var ENDPOINT = "https://medium-fetcher.herokuapp.com/medium/";
 var request = null;
-var articles = [];
 var userProfileDiv = document.getElementById('userProfile');
 var articlesList = document.getElementById('articles');
 var spinner = document.getElementById('spinner');
@@ -168,16 +187,18 @@ function fetchArticles() {
 }
 
 function fetchMediumRSSFeed() {
+  var articles = [];
+
   if (username.value.length === 0) {
     return;
   }
 
-  resetContent();
+  resetContent(articles);
   fetchArticles().then(function (response) {
-    var userData = getUserDataFromResponse(response);
-    getArticlesFromResponse(response.message.items);
+    var userData = new userProfile_1.UserProfile(response.message.link, response.message.image);
+    articles = getArticlesFromResponse(response.message.items);
     populateUserData(userData);
-    populateArticles();
+    populateArticles(articles);
     spinner.style.display = 'none';
   }).catch(function (errorMessage) {
     spinner.style.display = 'none';
@@ -186,7 +207,7 @@ function fetchMediumRSSFeed() {
   });
 }
 
-function resetContent() {
+function resetContent(articles) {
   errorHeader.style.display = 'none';
   spinner.style.display = 'inline-block';
   userProfileDiv.innerHTML = '';
@@ -194,35 +215,12 @@ function resetContent() {
   articles = [];
 }
 
-function getUserDataFromResponse(response) {
-  return {
-    profileLink: response.message.link,
-    profileImg: response.message.image
-  };
-}
-
 function getArticlesFromResponse(mediumArticles) {
-  for (var index = 0; index < mediumArticles.length; index++) {
-    var mediumArticle = mediumArticles[index]; //If an item does not have a category attribute it is not an article
-
-    if (!mediumArticle.hasOwnProperty('category')) {
-      continue;
-    }
-
-    articles.push(mediumArticle);
-  }
-}
-
-function convertPublishTimeToDate(publishTimeInUnix) {
-  var date = new Date(Number(publishTimeInUnix) * 1000);
-  return date.getTime().toString();
-}
-
-function extractImageUrl(text) {
-  var srcIndex = text.indexOf("src");
-  var widthIndex = text.indexOf("width");
-  var imageSoruce = text.substring(srcIndex + 5, widthIndex - 2);
-  return imageSoruce;
+  //If an item does not have a category attribute it is not an article
+  var filteredArticles = mediumArticles.filter(function (article) {
+    return article.hasOwnProperty('category');
+  });
+  return filteredArticles;
 }
 
 function populateUserData(userData) {
@@ -242,7 +240,7 @@ function populateUserData(userData) {
   userProfileDiv.appendChild(anchorElement);
 }
 
-function populateArticles() {
+function populateArticles(articles) {
   for (var index = 0; index < articles.length; index++) {
     var liElem = document.createElement('li');
     var anchorElem = document.createElement('a');
@@ -255,7 +253,7 @@ function populateArticles() {
     articlesList.appendChild(liElem);
   }
 }
-},{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./userProfile":"userProfile.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -283,7 +281,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53912" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60572" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

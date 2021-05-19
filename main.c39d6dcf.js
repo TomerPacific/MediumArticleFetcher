@@ -134,6 +134,17 @@ var UserProfile = function UserProfile(link, image) {
 };
 
 exports.UserProfile = UserProfile;
+},{}],"constants.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.GET_REQUEST = "GET";
+exports.READY_STATE_OK = 4;
+exports.RESPONSE_STATUS_OK = 200;
+exports.ENTER_KEY = "Enter";
+exports.ENDPOINT = "https://medium-fetcher.herokuapp.com/medium/";
 },{}],"main.ts":[function(require,module,exports) {
 "use strict";
 
@@ -143,11 +154,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var userProfile_1 = require("./userProfile");
 
-var GET_REQUEST = "GET";
-var READY_STATE_OK = 4;
-var RESPONSE_STATUS_OK = 200;
-var ENTER_KEY_CODE = "Enter";
-var ENDPOINT = "https://medium-fetcher.herokuapp.com/medium/";
+var constants_1 = require("./constants");
+
 var request = null;
 var userProfileDiv = document.getElementById('userProfile');
 var articlesList = document.getElementById('articles');
@@ -156,7 +164,7 @@ var username = document.getElementById('username');
 var errorHeader = document.getElementById('errorMessage');
 var searchBtn = document.getElementById('search');
 username.addEventListener("keyup", function (event) {
-  if (event.key === ENTER_KEY_CODE) {
+  if (event.key === constants_1.ENTER_KEY) {
     event.preventDefault();
     fetchMediumRSSFeed();
   }
@@ -167,8 +175,8 @@ searchBtn.addEventListener("click", function (event) {
 
 function fetchArticles() {
   request = new XMLHttpRequest();
-  var url = ENDPOINT + username.value;
-  request.open(GET_REQUEST, url);
+  var url = constants_1.ENDPOINT + username.value;
+  request.open(constants_1.GET_REQUEST, url);
   request.setRequestHeader("Content-Type", "application/json");
 
   try {
@@ -179,10 +187,10 @@ function fetchArticles() {
 
   return new Promise(function (resolve, reject) {
     request.onreadystatechange = function () {
-      if (this.readyState === READY_STATE_OK && this.status === RESPONSE_STATUS_OK) {
+      if (this.readyState === constants_1.READY_STATE_OK && this.status === constants_1.RESPONSE_STATUS_OK) {
         var text = JSON.parse(this.responseText);
         resolve(text);
-      } else if (this.status !== RESPONSE_STATUS_OK) {
+      } else if (this.status !== constants_1.RESPONSE_STATUS_OK) {
         var errorMsg = this.statusText ? this.statusText : "Error in response";
         reject(errorMsg);
       }
@@ -257,7 +265,7 @@ function populateArticles(articles) {
     articlesList.appendChild(liElem);
   }
 }
-},{"./userProfile":"userProfile.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./userProfile":"userProfile.ts","./constants":"constants.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -285,7 +293,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61399" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62215" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

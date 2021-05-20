@@ -110,7 +110,7 @@ function populateUserData(userData: UserProfile) {
 
 function populateArticles(articles: Article[]) {
     for(let index = 0; index < articles.length; index++) {
-        let article = articles[index];
+        let article: Article = articles[index];
         articlesList.appendChild(article.createArticleMarkup());
     }
 }

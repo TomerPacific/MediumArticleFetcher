@@ -110,18 +110,7 @@ function populateUserData(userData: UserProfile) {
 
 function populateArticles(articles: Article[]) {
     for(let index = 0; index < articles.length; index++) {
-
-        let liElem = document.createElement('li');
-        let anchorElem = document.createElement('a');
-
         let article = articles[index];
-        
-        anchorElem.href = article.link;
-        anchorElem.title = article.title;
-        anchorElem.setAttribute('target', '_blank');
-        anchorElem.innerHTML = article.title;
-
-        liElem.appendChild(anchorElem);
-        articlesList.appendChild(liElem);
+        articlesList.appendChild(article.createArticleMarkup());
     }
 }

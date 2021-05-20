@@ -156,7 +156,6 @@ var userProfile_1 = require("./userProfile");
 
 var constants_1 = require("./constants");
 
-var request = null;
 var userProfileDiv = document.getElementById('userProfile');
 var articlesList = document.getElementById('articles');
 var spinner = document.getElementById('spinner');
@@ -174,7 +173,7 @@ searchBtn.addEventListener("click", function (event) {
 });
 
 function fetchArticles() {
-  request = new XMLHttpRequest();
+  var request = new XMLHttpRequest();
   var url = constants_1.ENDPOINT + username.value;
   request.open(constants_1.GET_REQUEST, url);
   request.setRequestHeader("Content-Type", "application/json");
@@ -199,13 +198,12 @@ function fetchArticles() {
 }
 
 function fetchMediumRSSFeed() {
-  var articles = [];
-
   if (username.value.length === 0) {
     return;
   }
 
-  resetContent(articles);
+  var articles = [];
+  resetContent();
   fetchArticles().then(function (response) {
     var userData = new userProfile_1.UserProfile(response.message.link, response.message.image);
     articles = getArticlesFromResponse(response.message.items);
@@ -219,12 +217,11 @@ function fetchMediumRSSFeed() {
   });
 }
 
-function resetContent(articles) {
+function resetContent() {
   errorHeader.style.display = 'none';
   spinner.style.display = 'inline-block';
   userProfileDiv.innerHTML = '';
   articlesList.innerHTML = '';
-  articles = [];
 }
 
 function getArticlesFromResponse(mediumArticles) {
@@ -254,15 +251,8 @@ function populateUserData(userData) {
 
 function populateArticles(articles) {
   for (var index = 0; index < articles.length; index++) {
-    var liElem = document.createElement('li');
-    var anchorElem = document.createElement('a');
     var article = articles[index];
-    anchorElem.href = article.link;
-    anchorElem.title = article.title;
-    anchorElem.setAttribute('target', '_blank');
-    anchorElem.innerHTML = article.title;
-    liElem.appendChild(anchorElem);
-    articlesList.appendChild(liElem);
+    articlesList.appendChild(article.createArticleMarkup());
   }
 }
 },{"./userProfile":"userProfile.ts","./constants":"constants.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -293,7 +283,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62215" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53613" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -4,7 +4,6 @@ import { ServerResponse } from "./serverResponse";
 import { UserProfile } from "./userProfile";
 import { GET_REQUEST, READY_STATE_OK, RESPONSE_STATUS_OK, ENTER_KEY, ENDPOINT } from "./constants";
 
-let request: XMLHttpRequest = null;
 let userProfileDiv: HTMLElement = document.getElementById('userProfile');
 let articlesList:HTMLElement = document.getElementById('articles');
 let spinner: HTMLElement = document.getElementById('spinner');
@@ -24,7 +23,7 @@ searchBtn.addEventListener("click", function(event: MouseEvent) {
 });
 
 function fetchArticles() {
-    request = new XMLHttpRequest();
+    let request: XMLHttpRequest = new XMLHttpRequest();
     let url = ENDPOINT + (<HTMLInputElement>username).value;
     request.open(GET_REQUEST, url);
     request.setRequestHeader("Content-Type", "application/json");
@@ -49,12 +48,13 @@ function fetchArticles() {
 }
 
 function fetchMediumRSSFeed() {
-    let articles: Article[] = [];
     if ((<HTMLInputElement>username).value.length === 0) {
         return;
     }
 
-    resetContent(articles);
+    let articles: Article[] = [];
+
+    resetContent();
     fetchArticles()
     .then(function(response: ServerResponse) {
         let userData: UserProfile = new UserProfile(response.message.link, response.message.image);
@@ -70,12 +70,11 @@ function fetchMediumRSSFeed() {
     });
 }
 
-function resetContent(articles: Article[]) {
+function resetContent() {
     errorHeader.style.display = 'none';
     spinner.style.display = 'inline-block';
     userProfileDiv.innerHTML = '';
     articlesList.innerHTML = '';
-    articles = [];
 }
 
 function getArticlesFromResponse(mediumArticles: Article[]) : Article[] {

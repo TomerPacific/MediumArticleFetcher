@@ -22,6 +22,36 @@ searchBtn.addEventListener("click", function(event: MouseEvent) {
     fetchMediumRSSFeed();
 });
 
+function fetchMediumRSSFeed() {
+    if ((<HTMLInputElement>username).value.length === 0) {
+        return;
+    }
+
+    resetContent();
+    let articles: Article[] = [];
+
+    fetchArticles()
+    .then(function(response: ServerResponse) {
+        spinner.style.display = 'none';
+        let userData: UserProfile = new UserProfile(response.message.link, response.message.image);
+        articles = filterArticlesFromResponse(response.message.items);
+        populateUserData(userData);
+        populateArticles(articles);
+    })
+    .catch(function(errorMessage) {
+        spinner.style.display = 'none';
+        errorHeader.innerHTML = errorMessage.message ? errorMessage.message : "An error has occurred.";
+        errorHeader.style.display = 'inline-block';
+    });
+}
+
+function resetContent() {
+    errorHeader.style.display = 'none';
+    spinner.style.display = 'inline-block';
+    userProfileDiv.innerHTML = '';
+    articlesList.innerHTML = '';
+}
+
 function fetchArticles() {
     let request: XMLHttpRequest = new XMLHttpRequest();
     let url = ENDPOINT + (<HTMLInputElement>username).value;
@@ -47,37 +77,7 @@ function fetchArticles() {
     
 }
 
-function fetchMediumRSSFeed() {
-    if ((<HTMLInputElement>username).value.length === 0) {
-        return;
-    }
-
-    let articles: Article[] = [];
-
-    resetContent();
-    fetchArticles()
-    .then(function(response: ServerResponse) {
-        let userData: UserProfile = new UserProfile(response.message.link, response.message.image);
-        articles = getArticlesFromResponse(response.message.items);
-        populateUserData(userData);
-        populateArticles(articles);
-        spinner.style.display = 'none';
-    })
-    .catch(function(errorMessage) {
-        spinner.style.display = 'none';
-        errorHeader.innerHTML = errorMessage.message ? errorMessage.message : "An error has occurred.";
-        errorHeader.style.display = 'inline-block';
-    });
-}
-
-function resetContent() {
-    errorHeader.style.display = 'none';
-    spinner.style.display = 'inline-block';
-    userProfileDiv.innerHTML = '';
-    articlesList.innerHTML = '';
-}
-
-function getArticlesFromResponse(mediumArticles: Article[]) : Article[] {
+function filterArticlesFromResponse(mediumArticles: Article[]) : Article[] {
     
     //If an item does not have a category attribute it is not an article
     let filteredArticles = mediumArticles.filter(function(article: Article) {

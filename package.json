@@ -1,4 +1,3 @@
-
 {
     "homepage": "https://tomerpacific.github.io/MediumArticleFetcher/",
     "files": [
@@ -14,5 +13,8 @@
         "gh-pages": "^1.2.0",
         "parcel-bundler": "^1.9.7",
         "typescript": "^2.9.2"
+    },
+    "dependencies": {
+        "normalize-url": "^6.0.1"
     }
 }

@@ -6,4 +6,4 @@ Fetch and present Medium articles written by a specific user
 
 
 
-I used a Node.js server deployed via Heroku to handle fetching the RSS feed and the rss-to-json package to convert the contents to, well, JSON.
+I used a Node.js server deployed via Render to handle fetching the RSS feed and the rss-to-json package to convert the contents to, well, JSON.

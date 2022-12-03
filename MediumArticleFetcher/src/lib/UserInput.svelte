@@ -11,14 +11,14 @@
             return;
         }
 
-        appStore.set({shouldShowSpinner: true})
+        appStore.set({shouldShowSpinner: true, errorMessage: ""})
         
         fetchMediumRSSFeed(username)
         .then(function(response) {
-            appStore.set({shouldShowSpinner: false})
+            appStore.set({shouldShowSpinner: false, errorMessage: ""})
         })
-        .catch(function(errorMessage) {
-            appStore.set({shouldShowSpinner: false})
+        .catch(function(errMessage) {
+            appStore.set({shouldShowSpinner: false, errorMessage: errMessage})
         })
     }
 </script>

@@ -1,6 +1,5 @@
 import { writable } from 'svelte/store'
 
-export let appStore = writable({
-    shouldShowSpinner: false,
-    errorMessage: "",
-})
+export let shouldShowSpinner = writable(false)
+export let errorMessage = writable("")
+export let userProfile = writable(undefined)

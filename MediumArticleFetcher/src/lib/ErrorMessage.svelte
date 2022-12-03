@@ -1,14 +1,14 @@
 <script lang="ts">
-    import { appStore } from './AppStore';
+    import { errorMessage } from './AppStore';
     import { onMount } from 'svelte';
 
     let errorMessageDiv
 
     onMount(() => {
-        appStore.subscribe(data => {
-            if (data.errorMessage.length > 0) {
+        errorMessage.subscribe(errMsg => {
+            if (errMsg.length > 0) {
                 errorMessageDiv.style.display = "inline-block"
-                errorMessageDiv.innerHTML = data.errorMessage
+                errorMessageDiv.innerHTML = errMsg
             } else {
                 errorMessageDiv.style.display = "none"
             }

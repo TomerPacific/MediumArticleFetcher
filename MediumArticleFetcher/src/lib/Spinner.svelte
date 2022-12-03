@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { appStore } from './AppStore';
+    import { shouldShowSpinner } from './AppStore';
     import { onMount } from 'svelte';
 
     let spinnerDiv
 
     onMount(() => {
-      appStore.subscribe(data => {
-        spinnerDiv.style.display = data.shouldShowSpinner ? "inline-block" : "none"
+      shouldShowSpinner.subscribe(spinnerVisibilityState => {
+        spinnerDiv.style.display = spinnerVisibilityState ? "inline-block" : "none"
       })
     })
 

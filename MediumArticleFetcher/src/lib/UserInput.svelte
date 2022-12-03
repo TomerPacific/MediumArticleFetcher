@@ -2,7 +2,8 @@
 
     import { fetchMediumRSSFeed } from './fetchService';
     import { ServerResponse } from '../../../src/serverResponse';
-    import { appStore } from './AppStore';
+    import { shouldShowSpinner, errorMessage, userProfile } from './AppStore';
+    import { UserProfile } from './UserProfile';
 
     let username = "";
 
@@ -11,14 +12,17 @@
             return;
         }
 
-        appStore.set({shouldShowSpinner: true, errorMessage: ""})
+        shouldShowSpinner.set(true)
         
         fetchMediumRSSFeed(username)
-        .then(function(response) {
-            appStore.set({shouldShowSpinner: false, errorMessage: ""})
+        .then(function(response: ServerResponse) {
+            shouldShowSpinner.set(false)
+            let userData: UserProfile = new UserProfile(response.message.link, response.message.image);
+            userProfile.set(userData)
         })
         .catch(function(errMessage) {
-            appStore.set({shouldShowSpinner: false, errorMessage: errMessage})
+            shouldShowSpinner.set(false)
+            errorMessage.set(errMessage)
         })
     }
 </script>

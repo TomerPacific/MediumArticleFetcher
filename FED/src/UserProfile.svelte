@@ -2,7 +2,7 @@
 
     import { userProfile, userName } from './AppStore';
     import { onMount } from 'svelte';
-    import { UserProfile } from './UserProfile';
+    import type { UserProfile } from './UserProfile';
 
     let userProfileDiv
     let username

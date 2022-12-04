@@ -1,7 +1,7 @@
 <script lang="ts">
 
     import { fetchMediumRSSFeed } from './fetchService';
-    import { ServerResponse } from '../../../src/serverResponse';
+    import type { ServerResponse } from './serverResponse';
     import { shouldShowSpinner, errorMessage, userProfile, userName } from './AppStore';
     import { UserProfile } from './UserProfile';
 

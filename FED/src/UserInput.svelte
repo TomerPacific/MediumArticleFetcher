@@ -2,8 +2,9 @@
 
     import { fetchMediumRSSFeed } from './fetchService';
     import type { ServerResponse } from './serverResponse';
-    import { shouldShowSpinner, errorMessage, userProfile, userName } from './AppStore';
+    import { shouldShowSpinner, errorMessage, userProfile, userName, articles } from './AppStore';
     import { UserProfile } from './UserProfile';
+    import type { Article } from './article'
 
     let username = "";
 
@@ -20,12 +21,23 @@
             shouldShowSpinner.set(false)
             let userData: UserProfile = new UserProfile(response.message.link, response.message.image);
             userProfile.set(userData)
+            let filteredArticles = filterArticlesFromResponse(response.message.items)
+            articles.set(filteredArticles)
         })
         .catch(function(errMessage) {
             shouldShowSpinner.set(false)
             errorMessage.set(errMessage)
         })
     }
+
+    function filterArticlesFromResponse(mediumArticles: Article[]) : Article[] {
+        //If an item does not have a category attribute it is not an article
+        let filteredArticles = mediumArticles.filter(function(article: Article) {
+            return article.hasOwnProperty('category');
+        });
+
+        return filteredArticles;
+    } 
 </script>
 
 

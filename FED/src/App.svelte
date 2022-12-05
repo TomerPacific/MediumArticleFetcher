@@ -3,6 +3,7 @@
   import UserInput from './UserInput.svelte';
   import ErrorMessage from './ErrorMessage.svelte';
   import UserProfile from './UserProfile.svelte';
+  import Articles from './Articles.svelte';
 </script>
 
 <main id="container">
@@ -10,4 +11,5 @@
     <Spinner />
     <ErrorMessage />
     <UserProfile />
+    <Articles />
   </main>

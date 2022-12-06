@@ -8,15 +8,12 @@
     let username
 
     onMount(() => {
-        userProfile.subscribe(profile => {
-            if (profile !== undefined) {
-                populateUserData(profile)
-            }
-        })
 
-        userName.subscribe(name => {
-            username = name
-        })
+        if ($userProfile !== undefined) {
+            populateUserData($userProfile)
+        }
+        
+        username = $userName
     })
 
     function populateUserData(userData: UserProfile) {

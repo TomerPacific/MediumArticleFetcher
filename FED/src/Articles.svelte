@@ -7,14 +7,12 @@
 
     onMount(() => {
 
-        articles.subscribe(data => {
-            if (data.length > 0) {
-                for (let articleJSON of data) {
+        if ($articles.length > 0 ) {
+            for (let articleJSON of $articles) {
                     let article: Article = new Article(articleJSON);
                     articlesList.appendChild(article.createArticleMarkup());
                 }
-            }
-        })
+        }
     })
     
 </script>

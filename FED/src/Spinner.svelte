@@ -5,9 +5,7 @@
     let spinnerDiv
 
     onMount(() => {
-      shouldShowSpinner.subscribe(spinnerVisibilityState => {
-        spinnerDiv.style.display = spinnerVisibilityState ? "inline-block" : "none"
-      })
+      spinnerDiv.style.display = $shouldShowSpinner ? "inline-block" : "none"
     })
 
    

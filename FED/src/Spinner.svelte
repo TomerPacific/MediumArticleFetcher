@@ -1,12 +1,17 @@
 <script lang="ts">
     import { shouldShowSpinner } from './AppStore';
-    import { onMount } from 'svelte';
+    import { onMount, onDestroy } from 'svelte';
 
     let spinnerDiv
+    let unsubscribe
 
     onMount(() => {
-      spinnerDiv.style.display = $shouldShowSpinner ? "inline-block" : "none"
+      unsubscribe = shouldShowSpinner.subscribe(shouldSpinnerBeVisible => {
+        spinnerDiv.style.display = shouldSpinnerBeVisible ? "inline-block" : "none"
+      })
     })
+
+    onDestroy(unsubscribe)
 
    
 </script>

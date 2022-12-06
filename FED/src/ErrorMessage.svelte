@@ -1,17 +1,22 @@
 <script lang="ts">
     import { errorMessage } from './AppStore';
-    import { onMount } from 'svelte';
+    import { onDestroy, onMount } from 'svelte';
 
     let errorMessageDiv
+    let unsubscribe
 
     onMount(() => {
-        if ($errorMessage.length > 0) {
-            errorMessageDiv.style.display = "inline-block"
-            errorMessageDiv.innerHTML = $errorMessage
-        } else {
-            errorMessageDiv.style.display = "none"
-        }
+        unsubscribe = errorMessage.subscribe(errMsg => {
+            if (errMsg.length > 0) {
+                errorMessageDiv.style.display = "inline-block"
+                errorMessageDiv.innerHTML = errMsg
+            } else {
+                errorMessageDiv.style.display = "none"
+            }
+        })
       })
+
+    onDestroy(unsubscribe)
 </script>
 
 

@@ -1,19 +1,24 @@
 <script lang="ts">
     import { articles } from './AppStore'
-    import { onMount } from 'svelte';
+    import { onMount, onDestroy } from 'svelte';
     import {Article} from './article'
 
     let articlesList
+    let unsubscribe
 
     onMount(() => {
 
-        if ($articles.length > 0 ) {
-            for (let articleJSON of $articles) {
+        unsubscribe = articles.subscribe(articlesJSON => {
+            if (articlesJSON.length > 0 ) {
+            for (let articleJSON of articlesJSON) {
                     let article: Article = new Article(articleJSON);
                     articlesList.appendChild(article.createArticleMarkup());
                 }
-        }
+            }
+        })
     })
+
+    onDestroy(unsubscribe)
     
 </script>
 

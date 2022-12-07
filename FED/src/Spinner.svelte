@@ -1,23 +1,10 @@
 <script lang="ts">
     import { shouldShowSpinner } from './AppStore';
-    import { onMount, onDestroy } from 'svelte';
-
-    let spinnerDiv
-    let unsubscribe
-
-    onMount(() => {
-      unsubscribe = shouldShowSpinner.subscribe(shouldSpinnerBeVisible => {
-        spinnerDiv.style.display = shouldSpinnerBeVisible ? "inline-block" : "none"
-      })
-    })
-
-    onDestroy(unsubscribe)
-
    
 </script>
 
 <main>
-    <div id="spinner" bind:this={spinnerDiv}>
+    <div class="spinner" class:show={$shouldShowSpinner}>
         <div class="lds-grid">
             <div></div>
             <div></div>
@@ -34,11 +21,15 @@
 </main>
 
 <style>
-    #spinner {
-  display: none;
-  position: relative;
-  margin-top: 10%;
-}
+    .spinner {
+    display: none;
+    position: relative;
+    margin-top: 10%;
+  }
+
+  .spinner.show {
+    display: inline-block;
+  }
 
 .lds-grid {
     display: inline-block;

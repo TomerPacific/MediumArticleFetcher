@@ -13,20 +13,20 @@
             return;
         }
 
-        shouldShowSpinner.set(true)
-        userName.set(username)
+        $shouldShowSpinner = true
+        $userName = username
         
         fetchMediumRSSFeed(username)
         .then(function(response: ServerResponse) {
-            shouldShowSpinner.set(false)
+            $shouldShowSpinner = false
             let userData: UserProfile = new UserProfile(response.message.link, response.message.image);
-            userProfile.set(userData)
+            $userProfile = userData
             let filteredArticles = filterArticlesFromResponse(response.message.items)
-            articles.set(filteredArticles)
+            $articles = filteredArticles
         })
         .catch(function(errMessage) {
-            shouldShowSpinner.set(false)
-            errorMessage.set(errMessage)
+            $shouldShowSpinner = false
+            $errorMessage = errMessage
         })
     }
 

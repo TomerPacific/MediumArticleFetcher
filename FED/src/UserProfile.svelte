@@ -26,4 +26,8 @@
         display: inline-block;
         margin-top: 5%;
     }
+
+    #userAvatar {
+        border-radius: 50%;
+    }
 </style>

@@ -26,5 +26,6 @@
 
     .userProfile.show {
         display: inline-block;
+        margin-top: 5%;
     }
 </style>

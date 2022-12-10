@@ -1,18 +1,28 @@
 <script lang="ts">
     import { articles } from './AppStore'
+
+    function convertTimestampToDate(timestamp:number): string {
+        const date:Date = new Date(timestamp)
+        const day = date.getDate()
+        const month = date.getMonth()
+        const year = date.getFullYear()
+        return month + "/" + day + "/" + year
+        
+    }
+
 </script>
 
 <main>
-    
-    <ul id="articles">
+    <div id="grid-container">
         {#each $articles as article}
-        <li>
-            <a href="{article.link}" title="{article.title}">
-                {article.title}
-            </a>
-        </li>
+        <div class="grid-item">
+            <h4>
+                <a href="{article.link}" title="{article.title}">{article.title}</a>
+            </h4>
+            <h5>Published on: {convertTimestampToDate(article.published)}</h5>
+        </div>
         {/each}
-    </ul>
+    </div>
 </main>
 
 <style>
@@ -23,17 +33,15 @@
         margin-top: 2%;
     }
 
-    #articles > li {
-        display: block;
+    #grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        grid-gap: 10px;
+        padding: 10px;
     }
 
-    #articles > li > a {
-        text-decoration: none;
-        color: black;
+    .grid-item {
+        border: 2px solid black;
     }
 
-    #articles > li > a:hover {
-        color: lightslategrey;
-        font-weight: bold;
-    }
 </style>

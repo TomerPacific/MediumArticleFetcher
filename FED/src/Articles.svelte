@@ -20,6 +20,9 @@
                 <a href="{article.link}" title="{article.title}">{article.title}</a>
             </h4>
             <h5>Published on: {convertTimestampToDate(article.published)}</h5>
+            <p>
+                Article Categories: {article.category}
+            </p>
         </div>
         {/each}
     </div>
@@ -42,6 +45,7 @@
 
     .grid-item {
         border: 2px solid black;
+        margin: 1%;
     }
 
 </style>

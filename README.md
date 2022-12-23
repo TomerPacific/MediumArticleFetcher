@@ -2,7 +2,7 @@
 Fetch and present Medium articles written by a specific user
 
 
-![MediumArticleFetcher](https://media.giphy.com/media/6BfKqxSaWmG2FYJoFO/giphy.gif)
+![MediumArticleFetcher](https://media.giphy.com/media/n7er3OKix0AwL1qoxH/giphy.gif)
 
 
 

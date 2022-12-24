@@ -5,6 +5,7 @@
     import { shouldShowSpinner, errorMessage, userProfile, userName, articles } from './AppStore';
     import { UserProfile } from './UserProfile';
     import type { Article } from './article'
+    import { ENTER_KEY } from './constants'
 
     let username = "";
 
@@ -38,7 +39,16 @@
 
         return filteredArticles;
     } 
+
+    function handleOnKeyDownPressed(event) {
+        if (event.key === ENTER_KEY || event.code === ENTER_KEY) {
+            fetchArticlesByUsername()
+        }
+    }
+
 </script>
+
+<svelte:window on:keydown={handleOnKeyDownPressed}/>
 
 
 <main>

@@ -4,7 +4,7 @@
     function convertTimestampToDate(timestamp:number): string {
         const date:Date = new Date(timestamp)
         const day = date.getDate()
-        const month = date.getMonth()
+        const month = date.getMonth() + 1   // Month is zero based
         const year = date.getFullYear()
         return month + "/" + day + "/" + year
         
